@@ -1,10 +1,12 @@
 .Nav_container {
   display: flex;
   justify-content: space-between;
+  
   padding: 20px;
   width: 100vw;
   height: 500px;
-  background: url("../../public/images/background.png") center no-repeat;
+  background: url("../../public/images/background.png")  center  no-repeat;
+  background-size: cover;
   align-items: start;
 }
 .Nav_first {
@@ -16,10 +18,7 @@
 .Nav_first > p {
   padding-left: 5px;
 }
-.Nav_button {
-  display: flex;
-  align-items: center;
-}
+
 .Nav_btnChild1 {
   margin-right: 10px;
 }

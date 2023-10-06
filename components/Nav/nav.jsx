@@ -29,7 +29,10 @@ const Nav = () => {
         <p>180012345</p>
       </div>
       <img src="/images/logo.png" alt="logo" />
-      <div className={styles.Nav_button}>
+      <div className="hidden sm:block">
+        <p>me</p>
+      </div>
+      <div className={`flex items-center sm:hidden` }>
         <p className={styles.Nav_btnChild1}>Login</p>
         <button className={styles.Nav_btnChild2}>Sign up</button>
       </div>

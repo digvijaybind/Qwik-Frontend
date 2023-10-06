@@ -1,7 +1,12 @@
+"use client";
+
 import styles from "./page.module.css";
 import { Shadow } from "@/components/Utils/utils";
 import { TextInput } from "@/components/Form/input";
+import Planedesc from "../../components/Planedesc/planedesc";
+import { useRouter } from "next/navigation";
 const Listing = () => {
+  const router = useRouter();
   return (
     <div>
       <Shadow classname={styles.Nav_container}>
@@ -20,7 +25,11 @@ const Listing = () => {
           </svg>
           <p>Find flight</p>
         </div>
-        <img src="/images/logo.png" alt="logo" />
+        <img
+          onClick={() => router.push("/")}
+          src="/images/logo.png"
+          alt="logo"
+        />
         <div className="flex items-center">
           <div className={`${styles.Nav_first} mr-[30px]`}>
             <svg
@@ -54,7 +63,7 @@ const Listing = () => {
         </div>
       </Shadow>
       <Shadow
-        classname={`mt-[20px] w-[80%] p-[20px] flex flex-wrap ml-[50%] transform translate-x-[-50%] items-center`}
+        classname={`mt-[20px] w-[90%] p-[20px] flex flex-wrap ml-[50%] transform translate-x-[-50%] items-center`}
       >
         <TextInput
           className={"w-[300px] mr-[30px] mb-[15px]"}
@@ -94,14 +103,14 @@ const Listing = () => {
         </div>
       </Shadow>
       <Shadow
-        classname={`mt-[20px] w-[80%] p-[10px] flex  ml-[50%] transform translate-x-[-50%] items-center`}
+        classname={`mt-[20px] w-[90%] p-[10px] sm:hidden flex  ml-[50%] transform translate-x-[-50%] items-center`}
       >
         <div className="flex w-[50%]">
           <div className={`${styles.Right_border} w-[50%] text-center`}>
             <h2 className="font-[600]">Cheapest</h2>
             <p>9h 2002</p>
           </div>
-          <div className={`${styles.Right_border} w-[50%] text-center`}>
+          <div className={`${styles.Right_border}  w-[50%] text-center`}>
             <h2 className="font-[600]">Fastest</h2>
             <p>9h 2002</p>
           </div>
@@ -115,6 +124,20 @@ const Listing = () => {
           </div>
         </div>
       </Shadow>
+      <Shadow
+        classname={`mt-[20px] w-[90%]  font-bold mb-[15px] text-center p-[10px] flex  ml-[50%] transform translate-x-[-50%] items-center`}
+      >
+        <h1 className={`${styles.Right_border}  w-[50%]`}>COMMERCIAL</h1>
+        <h1 className="w-[50%]">CHATERED</h1>
+      </Shadow>
+      <div className="px-[5%] sm:px-[1%]  flex justify-between items-stretch flex-wrap">
+        {Array.from("asdfghjk").map((el) => (
+          <Planedesc></Planedesc>
+        ))}
+      </div>
+      <button className="w-[90%] ml-[50%] transform translate-x-[-50%] rounded-[4px] my-[20px] px-[16px] py-[8px] bg-[#112211] text-white font-[600] text-[14px]">
+        Show more results
+      </button>
     </div>
   );
 };
