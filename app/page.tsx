@@ -1,14 +1,18 @@
+"use client"
+
 import Image from "next/image";
 import { Inter, Montserrat } from "@next/font/google";
 import styles from "./page.module.css";
 import Nav from "../components/Nav/nav";
 import Planetype from "../components/PlaneType/planetype";
-import Review from "../components/Review/review"
+import Review from "../components/Review/review";
 import { TextInput } from "../components/Form/input";
 import { Shadow } from "../components/Utils/Utils";
+import { useRouter } from "next/navigation";
 const montesserat = Montserrat({ subsets: ["latin"] });
 
 export default function Home() {
+  const router = useRouter();
   const planetypes = [
     {
       no: 1,
@@ -108,7 +112,9 @@ export default function Home() {
                   stroke-width="0.046875"
                 />
               </svg>
-              <p className="pl-[10px]">Show Flights </p>
+              <p className="pl-[10px]" onClick={() => router.push("/listing")}>
+                Show Flights{" "}
+              </p>
             </div>
           </div>
         </Shadow>
@@ -163,6 +169,18 @@ export default function Home() {
           <Review></Review>
           <Review></Review>
           <Review></Review>
+        </div>
+        <div className="flex justify-end px-[10%] mb-[30px]">
+          <div className="flex items-center px-[20px] py-[5px] rounded-[30px] bg-[#40D1F0]">
+            <img
+              className="w-[64px] pl-[10px]"
+              src="/images/whatsapp.png"
+              alt="whatsapp"
+            />
+            <p className="ml-[15px] text-[22px] font-[800]">
+              How can we help you?
+            </p>
+          </div>
         </div>
       </div>
     </main>
