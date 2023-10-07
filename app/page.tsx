@@ -1,17 +1,56 @@
+"use client"
+
 import Image from "next/image";
-import {Inter, Montserrat} from "@next/font/google";
+import { Inter, Montserrat } from "@next/font/google";
 import styles from "./page.module.css";
 import Nav from "../components/Nav/nav";
-import {TextInput} from "../components/Form/input";
-const montesserat = Montserrat({subsets: ["latin"]});
+import Planetype from "../components/PlaneType/planetype";
+import Review from "../components/Review/review";
+import { TextInput } from "../components/Form/input";
+import { Shadow } from "../components/Utils/Utils";
+import { useRouter } from "next/navigation";
+const montesserat = Montserrat({ subsets: ["latin"] });
 
 export default function Home() {
+  const router = useRouter();
+  const planetypes = [
+    {
+      no: 1,
+      head: "Airbus A-350",
+      text: "The Airbus A350 is a long-range, wide-body twin-engine jet airliner developed and produced by Airbus.",
+    },
+    {
+      no: 2,
+      head: "G - 650",
+      text: "The Gulfstream G650 is a large business jet produced by Gulfstream Aerospace. The model is designated Gulfstream GVI in its type certificate, and may be configured to carry from 11 to 18 passengers.",
+    },
+    {
+      no: 3,
+      head: "Boeing 777",
+      text: "The Boeing 777, commonly referred to as the Triple Seven, is an American long-range wide-body airliner developed and manufactured by Boeing Commercial Airplanes.",
+    },
+    {
+      no: 4,
+      head: "Learjet",
+      text: "Learjet is a Canadian-owned aerospace manufacturer of business jets for civilian and military use based in Wichita, Kansas, United States. Founded in the late 1950s by William Powell Lear as Swiss American Aviation Corporation",
+    },
+    {
+      no: 5,
+      head: "Sukhoi Superjet SSJ100 SSJ100",
+      text: "Sukhoi Superjet SSJ100 SSJ100, the first airliner in which engine and airframe have been designed together to optimize performance. The SSJ100 – a fusion of Russia’s famed aviation design.",
+    },
+    {
+      no: 6,
+      head: "Gulf Stream 4",
+      text: "The Gulfstream IV (or G-IV or GIV) and derivatives are a family of twinjet aircraft, mainly for private or business use. They were designed and built by Gulfstream Aerospace.",
+    },
+  ];
   return (
     <main className={montesserat.className}>
       <div>
         <Nav></Nav>
-        <div
-          className={`${styles.Top_container} shadow-md px-[10px] py-[15px] mt-[-100px]`}
+        <Shadow
+          classname={`${styles.Top_container} px-[10px] py-[15px] mt-[-100px]`}
         >
           <div className="flex items-center">
             <svg
@@ -73,8 +112,74 @@ export default function Home() {
                   stroke-width="0.046875"
                 />
               </svg>
-              <p className="pl-[10px]">Show Flights </p>
+              <p className="pl-[10px]" onClick={() => router.push("/listing")}>
+                Show Flights{" "}
+              </p>
             </div>
+          </div>
+        </Shadow>
+        <div className="flex justify-between items-center px-[10%] py-[20px]">
+          <div>
+            <p className="font-semibold text-[32px] py-[7px]">Top Fleets</p>
+            <p>Promoted as the ultimate long-distance air ambulance</p>
+          </div>
+          <div>
+            <p className="text-[#121] text-[14px] font-medium border rounded-[4px] px-[16px] py-[8px] border-[#40D1F0]">
+              See more Fleets
+            </p>
+          </div>
+        </div>
+        <div className="flex justify-center">
+          <Shadow
+            classname={
+              "w-[80%] text-[16px]  font-[800] px-[5%] flex justify-between items-center py-[20px]"
+            }
+          >
+            <p>Commercial</p>
+            <p>Chartered</p>
+          </Shadow>
+        </div>
+        <div className="flex justify-center py-[20px]">
+          <div className="flex w-[80%] justify-between items-stretch flex-wrap">
+            {planetypes.map(({ no, head, text }) => (
+              <Planetype
+                key={no}
+                image={no}
+                head={head}
+                desc={text}
+              ></Planetype>
+            ))}
+          </div>
+        </div>
+        <div className="flex justify-center">
+          <img className="w-[80%]" src="/images/bigplane.png" alt="" />
+        </div>
+        <div className="flex justify-between items-center px-[10%] pb-[20px]">
+          <div>
+            <p className="font-semibold text-[32px] py-[7px]">Reviews</p>
+            <p>What people says about Qwiklif facilities</p>
+          </div>
+          <div>
+            <p className="text-[#121] text-[14px] font-medium border rounded-[4px] px-[16px] py-[8px] border-[#40D1F0]">
+              See All
+            </p>
+          </div>
+        </div>
+        <div className="flex justify-between pb-[40px] px-[10%]">
+          <Review></Review>
+          <Review></Review>
+          <Review></Review>
+        </div>
+        <div className="flex justify-end px-[10%] mb-[30px]">
+          <div className="flex items-center px-[20px] py-[5px] rounded-[30px] bg-[#40D1F0]">
+            <img
+              className="w-[64px] pl-[10px]"
+              src="/images/whatsapp.png"
+              alt="whatsapp"
+            />
+            <p className="ml-[15px] text-[22px] font-[800]">
+              How can we help you?
+            </p>
           </div>
         </div>
       </div>

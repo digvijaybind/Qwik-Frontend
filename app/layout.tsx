@@ -1,6 +1,6 @@
 import "./globals.css";
 import { Inter, Montserrat } from "@next/font/google";
-
+import Footer from "../components/Footer/footer";
 const montserrat = Montserrat({ subsets: ["latin"] });
 export default function RootLayout({
   children,
@@ -14,7 +14,10 @@ export default function RootLayout({
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
       <head />
-      <body>{children}</body>
+      <body className={montserrat.className}>
+        {children}
+        <Footer></Footer>
+      </body>
     </html>
   );
 }
