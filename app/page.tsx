@@ -1,18 +1,56 @@
-"use client"
+"use client";
 
 import Image from "next/image";
-import { Inter, Montserrat } from "@next/font/google";
+import {Inter, Montserrat} from "@next/font/google";
 import styles from "./page.module.css";
 import Nav from "../components/Nav/nav";
 import Planetype from "../components/PlaneType/planetype";
 import Review from "../components/Review/review";
-import { TextInput } from "../components/Form/input";
-import { Shadow } from "../components/Utils/Utils";
-import { useRouter } from "next/navigation";
-const montesserat = Montserrat({ subsets: ["latin"] });
+import {TextInput} from "../components/Form/input";
+import {Shadow} from "../components/Utils/utils";
+import {useRouter} from "next/navigation";
+import {useEffect, useState} from "react";
+import {API_ENDPOINT} from "../constants/index";
+const montesserat = Montserrat({subsets: ["latin"]});
 
 export default function Home() {
   const router = useRouter();
+  const [apiData, setApiData] = useState({});
+  const [formData, setformData] = useState({
+    from: "",
+    to: "",
+    Depart: "",
+    Departure_date: "",
+  });
+
+  const handleIInputChange = (e: any) => {
+    const {name, value} = e.target;
+    setformData({...formData, [name]: value});
+  };
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(API_ENDPOINT.THIRD_API, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log("API response", responseData);
+      } else {
+        console.error("API error", response.statusText);
+      }
+    } catch (error) {
+      console.log(error, "error");
+    }
+  };
+
   const planetypes = [
     {
       no: 1,
@@ -68,14 +106,36 @@ export default function Home() {
             <p className="p-[10px]">Flights</p>
           </div>
           <div className="flex px-[5%] pt-[40px] justify-between">
-            <TextInput className={"w-[20%]"} label={"From"}></TextInput>
-            <TextInput className={"w-[15%]"} label={"To"}></TextInput>
-            <TextInput className={"w-[15%]"} label={"Depart"}></TextInput>
             <TextInput
-              className={"w-[15%]"}
-              label={"Departure Time"}
+              value={formData.from}
+              onChange={handleIInputChange}
+              className={"w-[20%]"}
+              label={"From"}
             ></TextInput>
-            <TextInput className={"w-[30%]"} label={"Passenger"}></TextInput>
+            <TextInput
+              value={formData.to}
+              onChange={handleIInputChange}
+              className={"w-[15%]"}
+              label={"To"}
+            ></TextInput>
+            <TextInput
+              value={formData.Depart}
+              onChange={handleIInputChange}
+              className={"w-[15%]"}
+              label={"Depart"}
+            ></TextInput>
+            <TextInput
+              value={formData.Depart}
+              onChange={handleIInputChange}
+              className={"w-[15%]"}
+              label={"Departure date"}
+            ></TextInput>
+            <TextInput
+              value={formData.Departure_date}
+              onChange={handleIInputChange}
+              className={"w-[30%]"}
+              label={"Passenger"}
+            ></TextInput>
           </div>
           <div className="px-[5%] py-[20px] flex justify-end text-[14px] items-center">
             <div className="flex items-center cursor-pointer">
@@ -112,7 +172,11 @@ export default function Home() {
                   stroke-width="0.046875"
                 />
               </svg>
-              <p className="pl-[10px]" onClick={() => router.push("/listing")}>
+              <p
+                className="pl-[10px]"
+                // onClick={() => router.push("/listing")}
+                onClick={handleSubmit}
+              >
                 Show Flights{" "}
               </p>
             </div>
@@ -141,7 +205,7 @@ export default function Home() {
         </div>
         <div className="flex justify-center py-[20px]">
           <div className="flex w-[80%] justify-between items-stretch flex-wrap">
-            {planetypes.map(({ no, head, text }) => (
+            {planetypes.map(({no, head, text}) => (
               <Planetype
                 key={no}
                 image={no}
