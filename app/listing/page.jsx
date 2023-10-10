@@ -10,7 +10,7 @@ const Listing = () => {
   return (
     <div>
       <Shadow classname={styles.Nav_container}>
-        <div className={styles.Nav_first}>
+        <div className={`${styles.Nav_first} sm:hidden`}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -23,7 +23,7 @@ const Listing = () => {
               fill="#112211"
             />
           </svg>
-          <p>Find flight</p>
+          <p className="">Find flight</p>
         </div>
         <img
           onClick={() => router.push("/")}
@@ -56,7 +56,7 @@ const Listing = () => {
             </svg>
             <p>180012345</p>
           </div>
-          <div className="flex items-center ">
+          <div className="flex items-center sm:hidden ">
             <img src="/images/man.svg" alt="man" />
             <p className="font-[600] text-[14px] px-[10px]">Vipin</p>
           </div>
@@ -66,23 +66,23 @@ const Listing = () => {
         classname={`mt-[20px] w-[90%] p-[20px] flex flex-wrap ml-[50%] transform translate-x-[-50%] items-center`}
       >
         <TextInput
-          className={"w-[300px] mr-[30px] mb-[15px]"}
+          className={"w-[300px] sm:w-[100%] mr-[30px] mb-[15px]"}
           label={"From"}
         ></TextInput>
         <TextInput
-          className={"w-[150px] mr-[30px] mb-[15px]"}
+          className={"w-[150px]  sm:w-[100%] mr-[30px] mb-[15px]"}
           label={"To"}
         ></TextInput>
         <TextInput
-          className={"w-[150px] mb-[15px] mr-[30px]"}
+          className={"w-[150px]  sm:w-[100%] mb-[15px] mr-[30px]"}
           label={"Depart"}
         ></TextInput>
         <TextInput
-          className={"w-[200px] mb-[15px] mr-[30px]"}
+          className={"w-[200px]  sm:w-[100%] mb-[15px] mr-[30px]"}
           label={"Departure Time"}
         ></TextInput>
         <TextInput
-          className={"w-[300px] mb-[15px] mr-[30px]"}
+          className={"w-[300px]  sm:w-[100%] mb-[15px] mr-[30px]"}
           label={"Passenger (Apart from patient)"}
         ></TextInput>
         <div className="py-[8px] mb-[15px] px-[16px] bg-[#40D1F0]">

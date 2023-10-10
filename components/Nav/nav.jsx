@@ -3,7 +3,7 @@ import styles from "./nav.module.css";
 const Nav = () => {
   return (
     <div className={styles.Nav_container}>
-      <div className={styles.Nav_first}>
+      <div className={`${styles.Nav_first} sm:hidden`}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="18"
@@ -29,9 +29,9 @@ const Nav = () => {
         <p>180012345</p>
       </div>
       <img src="/images/logo.png" alt="logo" />
-      <div className="hidden sm:block">
+      {/* <div className="hidden sm:block">
         <p>me</p>
-      </div>
+      </div> */}
       <div className={`flex items-center sm:hidden` }>
         <p className={styles.Nav_btnChild1}>Login</p>
         <button className={styles.Nav_btnChild2}>Sign up</button>

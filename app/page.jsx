@@ -67,30 +67,30 @@ export default function Home() {
             </svg>
             <p className="p-[10px]">Flights</p>
           </div>
-          <div className="flex flex-wrap px-[5%] sm:px-[2%] pt-[40px]">
+          <div className="flex sm:justify-center flex-wrap px-[5%] sm:px-[2%] pt-[40px]">
             <TextInput
-              className={"w-[200px] mb-[15px] mr-[20px]"}
+              className={"w-[200px] sm:w-[100%] mb-[15px] mr-[20px]"}
               label={"From"}
             ></TextInput>
             <TextInput
-              className={"w-[100px] mb-[15px]  mr-[20px]"}
+              className={"w-[100px] sm:w-[100%] mb-[15px]  mr-[20px]"}
               label={"To"}
             ></TextInput>
             <TextInput
-              className={"w-[100px]  mr-[20px] mb-[15px]"}
+              className={"w-[100px] sm:w-[100%]  mr-[20px] mb-[15px]"}
               label={"Depart"}
             ></TextInput>
             <TextInput
-              className={"w-[200px]  mr-[20px] mb-[15px]"}
+              className={"w-[200px] sm:w-[100%]  mr-[20px] mb-[15px]"}
               label={"Departure Time"}
             ></TextInput>
             <TextInput
-              className={"w-[250px]  mr-[20px] mb-[15px]"}
+              className={"w-[250px] sm:w-[100%]  mr-[20px] mb-[15px]"}
               label={"Passenger"}
             ></TextInput>
           </div>
           <div className="px-[5%] py-[20px] flex sm:flex-col justify-end text-[14px] items-center">
-            <div className="flex items-center cursor-pointer">
+            <div className="flex items-center sm:mb-[10px] cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
