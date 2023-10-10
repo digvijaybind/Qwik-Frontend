@@ -1,7 +1,7 @@
 import styles from "./Review.module.css";
 const Review = () => {
   return (
-    <div className={`${styles.Container} w-[30%]`}>
+    <div className={`${styles.Container} w-[30%] sm:w-[100%]`}>
       <div className={`${styles.Container2} p-[16px]`}>
         <p className="font-bold text-[24px]">REVIEW</p>
         <p className="mt-[30px]">
@@ -33,7 +33,7 @@ const Review = () => {
             Google
           </p>
         </div>
-        <img className="mt-[20px]" src="/images/review.png" alt="" />
+        <img className="mt-[20px] w-full" src="/images/review.png" alt="" />
       </div>
     </div>
   );

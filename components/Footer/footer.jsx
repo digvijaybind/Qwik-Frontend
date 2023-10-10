@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <div className={montserrat.className}>
       <div
-        className={`${styles.Footer_child} ml-[50%] pt-[20px] mb-[-80px] transform translate-x-[-50%] px-[30px] w-[80%]`}
+        className={`${styles.Footer_child} ml-[50%] pt-[20px] mb-[-80px] transform translate-x-[-50%] px-[30px] w-[80%] sm:w-[90%]`}
       >
         <p className="text-[32px] font-bold">Subscribe</p>
         <p className="text-[32px] font-bold">Newsletter</p>

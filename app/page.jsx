@@ -7,7 +7,7 @@ import Nav from "../components/Nav/nav";
 import Planetype from "../components/PlaneType/planetype";
 import Review from "../components/Review/review";
 import { TextInput } from "../components/Form/input";
-import { Shadow } from "../components/Utils/Utils";
+import { Shadow } from "../components/Utils/utils";
 import { useRouter } from "next/navigation";
 const montesserat = Montserrat({ subsets: ["latin"] });
 
@@ -46,7 +46,7 @@ export default function Home() {
     },
   ];
   return (
-    <main className={montesserat.className}>
+    <main>
       <div>
         <Nav></Nav>
         <Shadow
@@ -67,18 +67,30 @@ export default function Home() {
             </svg>
             <p className="p-[10px]">Flights</p>
           </div>
-          <div className="flex px-[5%] pt-[40px] justify-between">
-            <TextInput className={"w-[20%]"} label={"From"}></TextInput>
-            <TextInput className={"w-[15%]"} label={"To"}></TextInput>
-            <TextInput className={"w-[15%]"} label={"Depart"}></TextInput>
+          <div className="flex sm:justify-center flex-wrap px-[5%] sm:px-[2%] pt-[40px]">
             <TextInput
-              className={"w-[15%]"}
+              className={"w-[200px] sm:w-[100%] mb-[15px] mr-[20px]"}
+              label={"From"}
+            ></TextInput>
+            <TextInput
+              className={"w-[100px] sm:w-[100%] mb-[15px]  mr-[20px]"}
+              label={"To"}
+            ></TextInput>
+            <TextInput
+              className={"w-[100px] sm:w-[100%]  mr-[20px] mb-[15px]"}
+              label={"Depart"}
+            ></TextInput>
+            <TextInput
+              className={"w-[200px] sm:w-[100%]  mr-[20px] mb-[15px]"}
               label={"Departure Time"}
             ></TextInput>
-            <TextInput className={"w-[30%]"} label={"Passenger"}></TextInput>
+            <TextInput
+              className={"w-[250px] sm:w-[100%]  mr-[20px] mb-[15px]"}
+              label={"Passenger"}
+            ></TextInput>
           </div>
-          <div className="px-[5%] py-[20px] flex justify-end text-[14px] items-center">
-            <div className="flex items-center cursor-pointer">
+          <div className="px-[5%] py-[20px] flex sm:flex-col justify-end text-[14px] items-center">
+            <div className="flex items-center sm:mb-[10px] cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -95,9 +107,12 @@ export default function Home() {
                   stroke-linejoin="round"
                 />
               </svg>
-              <p className="pl-[10px]">Add Promo Code</p>
+              <p className="pl-[10px] sm:text-[14px]">Add Promo Code</p>
             </div>
-            <div className="flex items-center ml-[15px] px-[16px] py-[8px] bg-[#40D1F0] cursor-pointer rounded-[4px]">
+            <div
+              onClick={() => router.push("/listing")}
+              className="flex items-center sm:text-[14px] ml-[15px] px-[16px] py-[8px] bg-[#40D1F0] cursor-pointer rounded-[4px]"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -112,19 +127,17 @@ export default function Home() {
                   stroke-width="0.046875"
                 />
               </svg>
-              <p className="pl-[10px]" onClick={() => router.push("/listing")}>
-                Show Flights{" "}
-              </p>
+              <p className="pl-[10px]">Show Flights </p>
             </div>
           </div>
         </Shadow>
-        <div className="flex justify-between items-center px-[10%] py-[20px]">
+        <div className="flex sm:flex-col justify-between items-center sm:items-start px-[10%] py-[20px]">
           <div>
             <p className="font-semibold text-[32px] py-[7px]">Top Fleets</p>
             <p>Promoted as the ultimate long-distance air ambulance</p>
           </div>
           <div>
-            <p className="text-[#121] text-[14px] font-medium border rounded-[4px] px-[16px] py-[8px] border-[#40D1F0]">
+            <p className="text-[#121] sm:mt-[15px] text-[14px] font-medium border rounded-[4px] px-[16px] py-[8px] border-[#40D1F0]">
               See more Fleets
             </p>
           </div>
@@ -140,7 +153,7 @@ export default function Home() {
           </Shadow>
         </div>
         <div className="flex justify-center py-[20px]">
-          <div className="flex w-[80%] justify-between items-stretch flex-wrap">
+          <div className="flex w-[80%] sm:w-[90%] sm:flex-col justify-between items-stretch flex-wrap">
             {planetypes.map(({ no, head, text }) => (
               <Planetype
                 key={no}
@@ -151,10 +164,10 @@ export default function Home() {
             ))}
           </div>
         </div>
-        <div className="flex justify-center">
+        <div className="flex  justify-center">
           <img className="w-[80%]" src="/images/bigplane.png" alt="" />
         </div>
-        <div className="flex justify-between items-center px-[10%] pb-[20px]">
+        <div className="flex sm:flex-col justify-between items-center sm:items-start px-[10%] pb-[20px]">
           <div>
             <p className="font-semibold text-[32px] py-[7px]">Reviews</p>
             <p>What people says about Qwiklif facilities</p>
@@ -165,7 +178,7 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <div className="flex justify-between pb-[40px] px-[10%]">
+        <div className="flex sm:flex-col justify-between pb-[40px] px-[10%] sm:px-[5%]">
           <Review></Review>
           <Review></Review>
           <Review></Review>
