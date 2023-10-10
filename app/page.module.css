@@ -9,4 +9,8 @@
   background-color: white;
   border-radius: 8px;
 }
-
+@media screen and (max-width:639px) {
+  .Top_container{
+    width: 95%;
+  }
+}
