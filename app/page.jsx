@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
 import Image from "next/image";
-import { Inter, Montserrat } from "@next/font/google";
+import {Inter, Montserrat} from "@next/font/google";
 import styles from "./page.module.css";
 import Nav from "../components/Nav/nav";
 import Planetype from "../components/PlaneType/planetype";
@@ -13,6 +13,42 @@ const montesserat = Montserrat({ subsets: ["latin"] });
 
 export default function Home() {
   const router = useRouter();
+  const [apiData, setApiData] = useState({});
+  const [formData, setformData] = useState({
+    from: "",
+    to: "",
+    Depart: "",
+    Departure_date: "",
+  });
+
+  const handleIInputChange = (e) => {
+    const {name, value} = e.target;
+    setformData({...formData, [name]: value});
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(API_ENDPOINT.THIRD_API, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log("API response", responseData);
+      } else {
+        console.error("API error", response.statusText);
+      }
+    } catch (error) {
+      console.log(error, "error");
+    }
+  };
+
   const planetypes = [
     {
       no: 1,
