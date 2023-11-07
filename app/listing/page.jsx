@@ -9,6 +9,14 @@ const Listing = () => {
   const router = useRouter();
   const airdata = JSON.parse(localStorage.getItem("aircraft"));
   console.log(airdata);
+
+  const convertTime = (data) => {
+    const hours = Math.floor(data); // Extract whole hours
+    const minutes = Math.round((data - hours) * 60); // Convert fractional part to minutes and round
+
+    const result = `${hours}h ${minutes}m`;
+    return result;
+  };
   return (
     <div>
       <Shadow classname={styles.Nav_container}>
@@ -137,6 +145,7 @@ const Listing = () => {
           <Planedesc
             name={el.aviapagesResponse.aircraft}
             price={Math.ceil(el.price * 10) / 10}
+            time={convertTime(el.timeHours)}
           ></Planedesc>
         ))}
       </div>

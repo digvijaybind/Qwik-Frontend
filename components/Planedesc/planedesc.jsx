@@ -1,6 +1,6 @@
 import { Shadow } from "../Utils/utils";
 import { Checkbox } from "@mui/material";
-const Planedesc = ({price,name}) => {
+const Planedesc = ({price,name,time}) => {
   return (
     <div className="w-[48%] sm:w-[100%] mb-[15px] ">
       <Shadow classname={"flex sm:flex-col   items-start p-[15px]"}>
@@ -25,7 +25,7 @@ const Planedesc = ({price,name}) => {
             </div>
             <p className="font-[600]">non-stop</p>
             <div>
-              <p className="font-[600]">2h 28m</p>
+              <p className="font-[600]">{time}</p>
               <p>EWR - BNA</p>
             </div>
           </div>
