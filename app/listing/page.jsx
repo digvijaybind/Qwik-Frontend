@@ -7,6 +7,8 @@ import Planedesc from "../../components/Planedesc/planedesc";
 import { useRouter } from "next/navigation";
 const Listing = () => {
   const router = useRouter();
+  const airdata = JSON.parse(localStorage.getItem("aircraft"));
+  console.log(airdata);
   return (
     <div>
       <Shadow classname={styles.Nav_container}>
@@ -131,8 +133,11 @@ const Listing = () => {
         <h1 className="w-[50%]">CHATERED</h1>
       </Shadow>
       <div className="px-[5%] sm:px-[1%]  flex justify-between items-stretch flex-wrap">
-        {Array.from("asdfghjk").map((el) => (
-          <Planedesc></Planedesc>
+        {airdata.nearestOperatorWithPrice.map((el, i) => (
+          <Planedesc
+            name={el.aviapagesResponse.aircraft}
+            price={Math.ceil(el.price * 10) / 10}
+          ></Planedesc>
         ))}
       </div>
       <button className="w-[90%] ml-[50%] transform translate-x-[-50%] rounded-[4px] my-[20px] px-[16px] py-[8px] bg-[#112211] text-white font-[600] text-[14px]">

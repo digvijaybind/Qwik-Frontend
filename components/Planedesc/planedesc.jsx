@@ -1,14 +1,14 @@
 import { Shadow } from "../Utils/utils";
 import { Checkbox } from "@mui/material";
-const Planedesc = () => {
+const Planedesc = ({price,name}) => {
   return (
     <div className="w-[48%] sm:w-[100%] mb-[15px] ">
       <Shadow classname={"flex sm:flex-col   items-start p-[15px]"}>
         <img className="mr-[10px] sm:w-full sm:mb-[20px]" src="/images/desc1.png" alt="" />
         <div className="w-full">
           <div className="flex justify-between items-center">
-            <p className="font-bold">Airbus A350-900</p>
-            <p className="text-[#FF8682] font-bold">$104</p>
+            <p className="font-bold">{`${name}`}</p>
+            <p className="text-[#FF8682] font-bold">{`$${price}`}</p>
           </div>
           <div className="flex text-[14px] py-[10px] justify-between items-start">
             <div className="flex items-start">

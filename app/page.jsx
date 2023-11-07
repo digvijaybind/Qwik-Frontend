@@ -1,15 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import {Inter, Montserrat} from "@next/font/google";
+import { Inter, Montserrat } from "@next/font/google";
 import styles from "./page.module.css";
 import Nav from "../components/Nav/nav";
 import Planetype from "../components/PlaneType/planetype";
 import Review from "../components/Review/review";
-import { TextInput } from "../components/Form/input";
+import { TextInput, DateInput } from "../components/Form/input";
 import { useState } from "react";
 import { Shadow } from "../components/Utils/utils";
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import axios from "axios";
 const montesserat = Montserrat({ subsets: ["latin"] });
 
 export default function Home() {
@@ -21,34 +23,34 @@ export default function Home() {
     Depart: "",
     Departure_date: "",
   });
-
+  const { register, handleSubmit } = useForm();
   const handleIInputChange = (e) => {
-    const {name, value} = e.target;
-    setformData({...formData, [name]: value});
+    const { name, value } = e.target;
+    setformData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
 
-    try {
-      const response = await fetch(API_ENDPOINT.THIRD_API, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+  //   try {
+  //     const response = await fetch(API_ENDPOINT.THIRD_API, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-type": "application/json",
+  //       },
+  //       body: JSON.stringify(formData),
+  //     });
 
-      if (response.ok) {
-        const responseData = await response.json();
-        console.log("API response", responseData);
-      } else {
-        console.error("API error", response.statusText);
-      }
-    } catch (error) {
-      console.log(error, "error");
-    }
-  };
+  //     if (response.ok) {
+  //       const responseData = await response.json();
+  //       console.log("API response", responseData);
+  //     } else {
+  //       console.error("API error", response.statusText);
+  //     }
+  //   } catch (error) {
+  //     console.log(error, "error");
+  //   }
+  // };
 
   const planetypes = [
     {
@@ -108,23 +110,44 @@ export default function Home() {
             <TextInput
               className={"w-[200px] sm:w-[100%] mb-[15px] mr-[20px]"}
               label={"From"}
+              register={register("From")}
             ></TextInput>
             <TextInput
               className={"w-[100px] sm:w-[100%] mb-[15px]  mr-[20px]"}
               label={"To"}
+              register={register("To")}
             ></TextInput>
-            <TextInput
+            {/* <TextInput
               className={"w-[100px] sm:w-[100%]  mr-[20px] mb-[15px]"}
               label={"Depart"}
-            ></TextInput>
+
+            ></TextInput> */}
+            <div className="relative  mb-[15px] ">
+              <label htmlFor="" className="absolute bg-white top-[-10px]">
+                Aircraft
+              </label>
+              <select
+                {...register("Aircraft")}
+                className={`${styles.SelectInput}  h-[40px] mr-[20px] outline-0`}
+                name=""
+                id=""
+              >
+                <option value="Learjet">Learjet</option>
+                <option value="C90">C90</option>
+                <option value="Challenger">Challenger 605</option>
+              </select>
+            </div>
+
             <TextInput
               className={"w-[200px] sm:w-[100%]  mr-[20px] mb-[15px]"}
-              label={"Departure Time"}
+              label={"Pax"}
+              register={register("Pax")}
             ></TextInput>
-            <TextInput
+            <DateInput
               className={"w-[250px] sm:w-[100%]  mr-[20px] mb-[15px]"}
-              label={"Passenger"}
-            ></TextInput>
+              label={"Date"}
+              register={register("Date")}
+            ></DateInput>
           </div>
           <div className="px-[5%] py-[20px] flex sm:flex-col justify-end text-[14px] items-center">
             <div className="flex items-center sm:mb-[10px] cursor-pointer">
@@ -147,7 +170,21 @@ export default function Home() {
               <p className="pl-[10px] sm:text-[14px]">Add Promo Code</p>
             </div>
             <div
-              onClick={() => router.push("/listing")}
+              onClick={handleSubmit((data) => {
+                axios
+                  .post(
+                    "http://54.82.252.144:8000/customer/customerSearch",
+                    data
+                  )
+                  .then((res) => {
+                    console.log(res);
+                    localStorage.setItem("aircraft", JSON.stringify(res.data));
+                    router.push("/listing");
+                  })
+                  .catch((err) => console.log(err));
+                console.log(data);
+              
+              })}
               className="flex items-center sm:text-[14px] ml-[15px] px-[16px] py-[8px] bg-[#40D1F0] cursor-pointer rounded-[4px]"
             >
               <svg
