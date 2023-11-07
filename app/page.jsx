@@ -6,11 +6,12 @@ import styles from "./page.module.css";
 import Nav from "../components/Nav/nav";
 import Planetype from "../components/PlaneType/planetype";
 import Review from "../components/Review/review";
-import { TextInput } from "../components/Form/input";
-import { Shadow } from "../components/Utils/utils";
-import { useRouter } from "next/navigation";
-const montesserat = Montserrat({ subsets: ["latin"] });
-
+import {TextInput} from "../components/Form/input";
+import {Shadow} from "../components/Utils/utils";
+import {useRouter} from "next/navigation";
+import {useState} from "react";
+const montesserat = Montserrat({subsets: ["latin"]});
+import {dropdownComponent} from "../components/dropdown/dropdown";
 export default function Home() {
   const router = useRouter();
   const [apiData, setApiData] = useState({});
@@ -20,7 +21,12 @@ export default function Home() {
     Depart: "",
     Departure_date: "",
   });
+  const options = ["Option 1", "Option 2", "Option 3"];
+  const [selectedOption, setSelectedOption] = useState(options[0]);
 
+  const handleSelect = (option) => {
+    setSelectedOption(option);
+  };
   const handleIInputChange = (e) => {
     const {name, value} = e.target;
     setformData({...formData, [name]: value});
@@ -116,10 +122,10 @@ export default function Home() {
               className={"w-[100px] sm:w-[100%]  mr-[20px] mb-[15px]"}
               label={"Depart"}
             ></TextInput>
-            <TextInput
-              className={"w-[200px] sm:w-[100%]  mr-[20px] mb-[15px]"}
-              label={"Departure Time"}
-            ></TextInput>
+            <div>
+              <dropdownComponent options={options} onSelect={handleSelect} />
+              <p>Selected Option: {selectedOption}</p>
+            </div>
             <TextInput
               className={"w-[250px] sm:w-[100%]  mr-[20px] mb-[15px]"}
               label={"Passenger"}
@@ -190,7 +196,7 @@ export default function Home() {
         </div>
         <div className="flex justify-center py-[20px]">
           <div className="flex w-[80%] sm:w-[90%] sm:flex-col justify-between items-stretch flex-wrap">
-            {planetypes.map(({ no, head, text }) => (
+            {planetypes.map(({no, head, text}) => (
               <Planetype
                 key={no}
                 image={no}
