@@ -146,6 +146,7 @@ const Listing = () => {
             name={el.aviapagesResponse.aircraft}
             price={Math.ceil(el.price * 10) / 10}
             time={convertTime(el.timeHours)}
+            speed={el.operator.speed}
           ></Planedesc>
         ))}
       </div>
