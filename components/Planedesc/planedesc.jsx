@@ -4,7 +4,11 @@ const Planedesc = ({price,name,time,speed}) => {
   return (
     <div className="w-[48%] sm:w-[100%] mb-[15px] ">
       <Shadow classname={"flex sm:flex-col   items-start p-[15px]"}>
-        <img className="mr-[10px] sm:w-full sm:mb-[20px]" src="/images/desc1.png" alt="" />
+        <img
+          className="mr-[10px] sm:w-full sm:mb-[20px]"
+          src="/images/desc1.png"
+          alt=""
+        />
         <div className="w-full">
           <div className="flex justify-between items-center">
             <p className="font-bold">{`${name}`}</p>
@@ -14,8 +18,8 @@ const Planedesc = ({price,name,time,speed}) => {
             <div className="flex items-start">
               <Checkbox
                 sx={{
-                  "& .MuiSvgIcon-root": { fontSize: 28, marginRight: 0.3 },
-                  "&.MuiCheckbox-root": { padding: 0, marginRight: 0 },
+                  "& .MuiSvgIcon-root": {fontSize: 28, marginRight: 0.3},
+                  "&.MuiCheckbox-root": {padding: 0, marginRight: 0},
                 }}
               ></Checkbox>
               <div>

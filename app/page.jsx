@@ -1,18 +1,18 @@
 "use client";
 
 import Image from "next/image";
-import { Inter, Montserrat } from "@next/font/google";
+import {Inter, Montserrat} from "@next/font/google";
 import styles from "./page.module.css";
 import Nav from "../components/Nav/nav";
 import Planetype from "../components/PlaneType/planetype";
 import Review from "../components/Review/review";
-import { TextInput, DateInput } from "../components/Form/input";
-import { useState } from "react";
-import { Shadow } from "../components/Utils/utils";
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
+import {TextInput, DateInput} from "../components/Form/input";
+import {useState} from "react";
+import {Shadow} from "../components/Utils/utils";
+import {useRouter} from "next/navigation";
+import {useForm} from "react-hook-form";
 import axios from "axios";
-const montesserat = Montserrat({ subsets: ["latin"] });
+const montesserat = Montserrat({subsets: ["latin"]});
 
 export default function Home() {
   const router = useRouter();
@@ -23,10 +23,10 @@ export default function Home() {
     Depart: "",
     Departure_date: "",
   });
-  const { register, handleSubmit } = useForm();
+  const {register, handleSubmit} = useForm();
   const handleIInputChange = (e) => {
-    const { name, value } = e.target;
-    setformData({ ...formData, [name]: value });
+    const {name, value} = e.target;
+    setformData({...formData, [name]: value});
   };
 
   // const handleSubmit = async (e) => {
@@ -132,7 +132,7 @@ export default function Home() {
                 name=""
                 id=""
               >
-                <option value="Learjet">Learjet</option>
+                <option value="Learjet 45">Learjet 45</option>
                 <option value="C90">C90</option>
                 <option value="Challenger">Challenger 605</option>
               </select>
@@ -183,7 +183,6 @@ export default function Home() {
                   })
                   .catch((err) => console.log(err));
                 console.log(data);
-              
               })}
               className="flex items-center sm:text-[14px] ml-[15px] px-[16px] py-[8px] bg-[#40D1F0] cursor-pointer rounded-[4px]"
             >
@@ -228,7 +227,7 @@ export default function Home() {
         </div>
         <div className="flex justify-center py-[20px]">
           <div className="flex w-[80%] sm:w-[90%] sm:flex-col justify-between items-stretch flex-wrap">
-            {planetypes.map(({ no, head, text }) => (
+            {planetypes.map(({no, head, text}) => (
               <Planetype
                 key={no}
                 image={no}
