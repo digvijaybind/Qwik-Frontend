@@ -5,10 +5,13 @@ import { Shadow } from "@/components/Utils/utils";
 import { TextInput } from "@/components/Form/input";
 import Planedesc from "../../components/Planedesc/planedesc";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 const Listing = () => {
   const router = useRouter();
-  const airdata = JSON.parse(localStorage.getItem("aircraft"));
-  console.log(airdata);
+  const [airdata, setAirData] = useState({});
+  useEffect(() => {
+    setAirData(JSON.parse(localStorage.getItem("aircraft")));
+  }, []);
 
   const convertTime = (data) => {
     const hours = Math.floor(data); // Extract whole hours
@@ -141,7 +144,7 @@ const Listing = () => {
         <h1 className="w-[50%]">CHATERED</h1>
       </Shadow>
       <div className="px-[5%] sm:px-[1%]  flex justify-between items-stretch flex-wrap">
-        {airdata.nearestOperatorWithPrice.map((el, i) => (
+        {airdata?.nearestOperatorWithPrice?.map((el, i) => (
           <Planedesc
             name={el.aviapagesResponse.aircraft}
             price={Math.ceil(el.price * 10) / 10}
