@@ -1,12 +1,9 @@
 import "./globals.css";
-import { Inter, Montserrat } from "@next/font/google";
+import {Inter, Montserrat} from "@next/font/google";
 import Footer from "../components/Footer/footer";
-const montserrat = Montserrat({ subsets: ["latin"] });
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const montserrat = Montserrat({subsets: ["latin"]});
+import {DataProvider} from "../context/DataContext";
+export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html lang="en" className={montserrat.className}>
       {/*
@@ -15,8 +12,10 @@ export default function RootLayout({
       */}
       <head />
       <body className={montserrat.className}>
-        {children}
-        <Footer></Footer>
+        <DataProvider>
+          {children}
+          <Footer></Footer>
+        </DataProvider>
       </body>
     </html>
   );

@@ -1,16 +1,20 @@
 "use client";
 
 import styles from "./page.module.css";
-import { Shadow } from "@/components/Utils/utils";
-import { TextInput } from "@/components/Form/input";
+import {Shadow} from "@/components/Utils/utils";
+import {TextInput} from "@/components/Form/input";
 import Planedesc from "../../components/Planedesc/planedesc";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import {useRouter} from "next/router";
+import {useEffect, useState} from "react";
+import {useData} from "../../context/DataContext";
+
 const Listing = () => {
-  const router = useRouter();
+  const {apiData} = useData();
+  console.log("apiData", apiData);
+
   const [airdata, setAirData] = useState({});
   useEffect(() => {
-    setAirData(JSON.parse(localStorage.getItem("aircraft")));
+    // setAirData(JSON?.parse(localStorage?.getItem("aircraft")));
   }, []);
 
   const convertTime = (data) => {
@@ -71,7 +75,7 @@ const Listing = () => {
           </div>
           <div className="flex items-center sm:hidden ">
             <img src="/images/man.svg" alt="man" />
-            <p className="font-[600] text-[14px] px-[10px]">Vipin</p>
+            <p className="font-[600] text-[14px] px-[10px]">Qwiklif</p>
           </div>
         </div>
       </Shadow>
@@ -144,12 +148,14 @@ const Listing = () => {
         <h1 className="w-[50%]">CHATERED</h1>
       </Shadow>
       <div className="px-[5%] sm:px-[1%]  flex justify-between items-stretch flex-wrap">
-        {airdata?.nearestOperatorWithPrice?.map((el, i) => (
+        {apiData?.nearestOperatorWithPrice?.map((el, i) => (
           <Planedesc
-            name={el.aviapagesResponse.aircraft}
+            name={el.operator.Aircraft_type}
             price={Math.ceil(el.price * 10) / 10}
-            time={convertTime(el.timeHours)}
+            time={convertTime(el.totalTime)}
             speed={el.operator.speed}
+            from={apiData.from}
+            to={apiData.to}
           ></Planedesc>
         ))}
       </div>

@@ -1,6 +1,6 @@
 import {Shadow} from "../Utils/utils";
 import {Checkbox} from "@mui/material";
-const Planedesc = ({price, name, time, speed}) => {
+const Planedesc = ({price, name, time, speed, from, to}) => {
   return (
     <div className="w-[48%] sm:w-[100%] mb-[15px] ">
       <Shadow classname={"flex sm:flex-col   items-start p-[15px]"}>
@@ -22,12 +22,13 @@ const Planedesc = ({price, name, time, speed}) => {
                   "&.MuiCheckbox-root": {padding: 0, marginRight: 0},
                 }}
               ></Checkbox>
-             
             </div>
             <p className="font-[600]">non-stop</p>
             <div>
               <p className="font-[600]">{time}</p>
-              <p>EWR - BNA</p>
+              <p>
+                {from} - {to}
+              </p>
             </div>
           </div>
           <div className="flex text-[12px] font-[600] justify-between">

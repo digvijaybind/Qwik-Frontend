@@ -25,7 +25,7 @@ const Review = () => {
             </svg>
           ))}
         </div>
-        <p className="text-[14px]">Vipin</p>
+        <p className="text-[14px]">QWiklif</p>
         <p className="text-[12px] font-[600] opacity-[0.4]">FIGMA</p>
         <div className="flex items-center">
           <img src="/images/google.svg" alt="" />
