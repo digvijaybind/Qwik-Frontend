@@ -7,15 +7,12 @@ import Planedesc from "../../components/Planedesc/planedesc";
 import {useRouter} from "next/router";
 import {useEffect, useState} from "react";
 import {useData} from "../../context/DataContext";
-
+import Loader from "../../components/Loader/loader";
 const Listing = () => {
   const {apiData} = useData();
   console.log("apiData", apiData);
-
+  const [loading, setLoading] = useState(true);
   const [airdata, setAirData] = useState({});
-  useEffect(() => {
-    // setAirData(JSON?.parse(localStorage?.getItem("aircraft")));
-  }, []);
 
   const convertTime = (data) => {
     const hours = Math.floor(data); // Extract whole hours
@@ -24,8 +21,24 @@ const Listing = () => {
     const result = `${hours}h ${minutes}m`;
     return result;
   };
+   useEffect(() => {
+    // Simulate an asynchronous task (e.g., fetching user data)
+    const asyncTask = async () => {
+      // Replace this with your actual async logic
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // Once the task is done, set loading to false
+      setLoading(false);
+    };
+
+    asyncTask();
+  }, []);
   return (
     <div>
+         {loading ? (
+        <Loader />
+      ) : (
+        <>
       <Shadow classname={styles.Nav_container}>
         <div className={`${styles.Nav_first} sm:hidden`}>
           <svg
@@ -162,7 +175,9 @@ const Listing = () => {
       <button className="w-[90%] ml-[50%] transform translate-x-[-50%] rounded-[4px] my-[20px] px-[16px] py-[8px] bg-[#112211] text-white font-[600] text-[14px]">
         Show more results
       </button>
-    </div>
+</>
+      )}
+      </div>
   );
 };
 

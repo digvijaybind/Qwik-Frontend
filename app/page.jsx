@@ -27,12 +27,12 @@ export default function Home() {
     Date: "",
     Aircraft: "Learjet 45",
   });
-  const {setApiData} = useData();
+
   const [selectedOption, setSelectedOption] = useState("");
 
   const [cityMatch, setCitymatch] = useState([]);
   const [fieldType, setFieldtype] = useState("");
-  const [loading, setLoading] = useState(true);
+ const { loading, startLoading, stopLoading ,setApiData} = useData();
 
   useEffect(() => {
     // Simulate an asynchronous task (e.g., fetching user data)
@@ -41,7 +41,7 @@ export default function Home() {
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       // Once the task is done, set loading to false
-      setLoading(false);
+      stopLoading();
     };
 
     asyncTask();
@@ -151,12 +151,13 @@ export default function Home() {
         body: raw,
         redirect: "follow",
       };
-
-      fetch("http://localhost:8000/customer/customerSearch", requestOptions)
+startLoading()
+      fetch(process.env.NEXT_PUBLIC_API_URL+"customer/customerSearch", requestOptions)
         .then((response) => response.json())
         .then((result) => {
           setApiData(result);
           console.log("result.data", result);
+          
           router.push("/listing");
         })
         .catch((error) => console.log("error", error));
@@ -226,9 +227,9 @@ export default function Home() {
                 <p className="p-[10px]">Flights</p>
               </div>
               <div className="flex sm:justify-center flex-wrap px-[5%] sm:px-[2%] pt-[40px]">
-                <div style={{position: "relative"}}>
+                <div  style={{position: "relative"}} className=" mb-[15px]  w-[200px] sm:w-[100%]  mr-[20px]">
                   <TextInput
-                    className={"w-[200px] sm:w-[100%] mb-[15px] mr-[20px]"}
+                    className={"w-[100px] sm:w-[100%] mb-[15px]  mr-[20px]"}
                     label={"From"}
                     // register={register("From")}
                     value={otherData.From}
@@ -277,7 +278,7 @@ export default function Home() {
                       );
                     })}
                 </div>
-                <div style={{position: "relative"}}>
+                <div style={{position: "relative"}} className=" mb-[15px]  w-[200px] sm:w-[100%]  mr-[20px]">
                   <TextInput
                     className={"w-[100px] sm:w-[100%] mb-[15px]  mr-[20px]"}
                     label={"To"}
@@ -339,7 +340,7 @@ export default function Home() {
                   </label>
                   <select
                     // {...register("Aircraft")}
-                    className={`${styles.SelectInput}  h-[40px]  outline-0 mb-[15px]  w-[200px] sm:w-[100%]  mr-[20px]`}
+                    className={`${styles.SelectInput}  h-[40px]  outline-0 mb-[15px]  w-[200px] sm:w-[100%]  mr-[20px] absolute bg-white top-[-10px]`}
                     name="Aircraft"
                     id=""
                     value={otherData.Aircraft}
