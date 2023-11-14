@@ -20,6 +20,8 @@ import airports from "../db/airport.json";
 export default function Home() {
   const router = useRouter();
   const [formData, setformData] = useState({});
+  const [fromSearch, setfromSearch] = useState("");
+  const [tosearch, setTosearch] = useState("");
   const [otherData, setOtherData] = useState({
     From: "",
     To: "",
@@ -32,8 +34,8 @@ export default function Home() {
 
   const [cityMatch, setCitymatch] = useState([]);
   const [fieldType, setFieldtype] = useState("");
- const { loading, startLoading, stopLoading ,setApiData} = useData();
-
+  const {loading, startLoading, stopLoading, setApiData} = useData();
+  console.log("fieldType", fieldType);
   useEffect(() => {
     // Simulate an asynchronous task (e.g., fetching user data)
     const asyncTask = async () => {
@@ -48,17 +50,23 @@ export default function Home() {
   }, []);
   console.log("airports", airports);
   const searchCity = (text) => {
-    console.log("airports1", airports);
-    let matches = airports.filter((city) => {
-      console.log("city", city);
-      return (
-        city.icao?.includes(text) ||
-        city.city_name?.includes(text) ||
-        city.country_name?.includes(text)
-      );
-    });
-    setCitymatch(matches);
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}all-airports?q=${text}`)
+      .then((response) => response.json())
+      .then((result) => {
+        console.log("result55", result);
+        setCitymatch(result);
+      })
+      .catch((error) => console.log("error", error));
   };
+  console.log("cityMatch", cityMatch);
+  useEffect(() => {
+    let interval = setTimeout(() => {
+      if (fromSearch || tosearch) {
+        searchCity(fieldType === "From" ? fromSearch : tosearch);
+      }
+    }, 500);
+    return () => clearInterval(interval);
+  }, [fromSearch, tosearch]);
   console.log("cityMatch", cityMatch);
   // useEffect(() => {
   //   handleSubmit();
@@ -151,13 +159,16 @@ export default function Home() {
         body: raw,
         redirect: "follow",
       };
-startLoading()
-      fetch(process.env.NEXT_PUBLIC_API_URL+"customer/customerSearch", requestOptions)
+      startLoading();
+      fetch(
+        process.env.NEXT_PUBLIC_API_URL + "customer/customerSearch",
+        requestOptions
+      )
         .then((response) => response.json())
         .then((result) => {
           setApiData(result);
           console.log("result.data", result);
-          
+
           router.push("/listing");
         })
         .catch((error) => console.log("error", error));
@@ -227,7 +238,10 @@ startLoading()
                 <p className="p-[10px]">Flights</p>
               </div>
               <div className="flex sm:justify-center flex-wrap px-[5%] sm:px-[2%] pt-[40px]">
-                <div  style={{position: "relative"}} className=" mb-[15px]  w-[200px] sm:w-[100%]  mr-[20px]">
+                <div
+                  style={{position: "relative"}}
+                  className=" mb-[15px]  w-[200px] sm:w-[100%]  mr-[20px]"
+                >
                   <TextInput
                     className={"w-[100px] sm:w-[100%] mb-[15px]  mr-[20px]"}
                     label={"From"}
@@ -237,48 +251,54 @@ startLoading()
                     onChange={(e) => {
                       handleOtherInputChange("From", e);
                       setFieldtype("From");
-                      searchCity(e.target.value);
+                      // searchCity(e.target.value);
+                      setfromSearch(e.currentTarget.value);
                     }}
                   ></TextInput>
-                  {fieldType === "From" &&
-                    cityMatch.length > 0 &&
-                    cityMatch?.map((item, index) => {
-                      return (
-                        <div
-                          style={{
-                            background: "#d1d1d1",
-                            position: "absolute",
-                            bottom: "23px",
-                            transform: "translateY(100%)",
-                            "z-index": "100",
-                          }}
-                          onClick={() => {
-                            setOtherData((pre) => ({
-                              ...pre,
-                              From: item.icao,
-                            }));
-                            setCitymatch([]);
-                          }}
-                        >
+                  <div style={{overflowY: "auto"}}>
+                    {fieldType === "From" &&
+                      cityMatch?.length > 0 &&
+                      cityMatch?.map((item, index) => {
+                        return (
                           <div
-                            style={{width: "50%", color: "black"}}
-                            title={`city:{item.name}`}
-                            id="citynamememenDubai"
+                            style={{
+                              background: "#d1d1d1",
+                              position: "absolute",
+                              bottom: "23px",
+                              transform: "translateY(100%)",
+                              "z-index": "100",
+                            }}
+                            onClick={() => {
+                              setOtherData((pre) => ({
+                                ...pre,
+                                From: item.icao,
+                              }));
+                              setCitymatch([]);
+                            }}
                           >
-                            {item.city_name},{item.icao}
-                            <br />
-                            <p>{item.country_name}</p>
+                            <div
+                              style={{width: "50%", color: "black"}}
+                              title={`city:{item.name}`}
+                              id="citynamememenDubai"
+                            >
+                              {item.city_name},{item.icao}
+                              <br />
+                              <p>{item.country_name}</p>
+                            </div>
+                            <div
+                              style={{width: "50%", color: "black"}}
+                              title={`city:{item.name}`}
+                              id="citynamememenDubai"
+                            ></div>
                           </div>
-                          <div
-                            style={{width: "50%", color: "black"}}
-                            title={`city:{item.name}`}
-                            id="citynamememenDubai"
-                          ></div>
-                        </div>
-                      );
-                    })}
+                        );
+                      })}
+                  </div>
                 </div>
-                <div style={{position: "relative"}} className=" mb-[15px]  w-[200px] sm:w-[100%]  mr-[20px]">
+                <div
+                  style={{position: "relative"}}
+                  className=" mb-[15px]  w-[200px] sm:w-[100%]  mr-[20px]"
+                >
                   <TextInput
                     className={"w-[100px] sm:w-[100%] mb-[15px]  mr-[20px]"}
                     label={"To"}
@@ -287,7 +307,7 @@ startLoading()
                     onChange={(e) => {
                       handleOtherInputChange("To", e);
                       setFieldtype("To");
-                      searchCity(e.target.value);
+                      setTosearch(e.currentTarget.value);
                     }}
                     // register={register("To")}
                   ></TextInput>
