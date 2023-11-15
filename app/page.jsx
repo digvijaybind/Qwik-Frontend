@@ -64,7 +64,7 @@ export default function Home() {
       if (fromSearch || tosearch) {
         searchCity(fieldType === "From" ? fromSearch : tosearch);
       }
-    }, 500);
+    }, 400);
     return () => clearInterval(interval);
   }, [fromSearch, tosearch]);
   console.log("cityMatch", cityMatch);
@@ -240,10 +240,10 @@ export default function Home() {
               <div className="flex sm:justify-center flex-wrap px-[5%] sm:px-[2%] pt-[40px]">
                 <div
                   style={{position: "relative"}}
-                  className=" mb-[15px]  w-[200px] sm:w-[100%]  mr-[20px]"
+                  className=" mb-[10px]  w-[200px] sm:w-[100%]  mr-[20px]"
                 >
                   <TextInput
-                    className={"w-[100px] sm:w-[100%] mb-[15px]  mr-[20px]"}
+                    className={"w-[200px] sm:w-[100%]  mr-[20px] mb-[15px]"}
                     label={"From"}
                     // register={register("From")}
                     value={otherData.From}
@@ -268,6 +268,9 @@ export default function Home() {
                               transform: "translateY(100%)",
                               "z-index": "100",
                             }}
+                            className={
+                              "w-[100px] sm:w-[100%] mb-[15px]  mr-[20px]"
+                            }
                             onClick={() => {
                               setOtherData((pre) => ({
                                 ...pre,
@@ -297,10 +300,10 @@ export default function Home() {
                 </div>
                 <div
                   style={{position: "relative"}}
-                  className=" mb-[15px]  w-[200px] sm:w-[100%]  mr-[20px]"
+                  className=" mb-[10px]  w-[200px] sm:w-[100%]  mr-[20px]"
                 >
                   <TextInput
-                    className={"w-[100px] sm:w-[100%] mb-[15px]  mr-[20px]"}
+                    className={"w-[200px] sm:w-[100%]  mr-[20px] mb-[15px]"}
                     label={"To"}
                     name="to"
                     value={otherData.To}
@@ -323,6 +326,9 @@ export default function Home() {
                             transform: "translateY(100%)",
                             "z-index": "100",
                           }}
+                          className={
+                            "w-[100px] sm:w-[100%] mb-[15px]  mr-[20px]"
+                          }
                           onClick={() => {
                             setOtherData((pre) => ({
                               ...pre,
@@ -354,13 +360,17 @@ export default function Home() {
               label={"Depart"}
 
             ></TextInput> */}
-                <div className="relative  mb-[15px]  w-[200px] sm:w-[100%]  mr-[20px]">
-                  <label htmlFor="" className="absolute bg-white top-[-10px]">
+
+                <div
+                  // className=" mb-[10px]  w-[200px] sm:w-[100%]  mr-[20px]"
+                  className="relative  mb-[10px]  w-[200px] sm:w-[100%]  mr-[20px] "
+                >
+                  <label htmlFor="" className="absolute bg-white top-[-18px]">
                     Aircraft
                   </label>
                   <select
                     // {...register("Aircraft")}
-                    className={`${styles.SelectInput}  h-[40px]  outline-0 mb-[15px]  w-[200px] sm:w-[100%]  mr-[20px] absolute bg-white top-[-10px]`}
+                    className={`${styles.SelectInput}  h-[40px]  outline-0 mb-[15px]  w-[200px] sm:w-[100%]  mr-[20px] absolute bg-white `}
                     name="Aircraft"
                     id=""
                     value={otherData.Aircraft}
@@ -374,7 +384,7 @@ export default function Home() {
                 </div>
 
                 <TextInput
-                  className={"w-[200px] sm:w-[100%]  mr-[20px] mb-[15px]"}
+                  className={"w-[200px] sm:w-[100%]  mr-[20px] "}
                   label={"Pax"}
                   value={otherData.Pax}
                   name="pax"
