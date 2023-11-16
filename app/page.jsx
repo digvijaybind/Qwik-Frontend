@@ -114,40 +114,9 @@ export default function Home() {
     // });
   };
   const handleSubmit = async () => {
-    // router.push({
-    //   pathname: "/listing",
-    //   query: "hello",
-    // });
-
     try {
-      // Make a POST request using Axios
-      // const headers = {
-      //   "Content-Type": "application/json",
-      //   Authorization: "Bearer YOUR_ACCESS_TOKEN", // Include authorization token if needed
-      // };
-      // const response = await axios.post(
-      //   `192.168.1.39:8000/customer/customerSearch`,
-
-      //   {
-      //     selectedOption,
-      //     otherData,
-      //     headers,
-      //   }
-      // );
-
-      // Handle success (optional)
-      // console.log("API Response:", response.data);
       console.log(otherData);
 
-      // const response = await axios.post(
-      //   "http://localhost:8000/customer/customerSearch",
-      //   {
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //   },
-      //   otherData
-      // );
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
 
