@@ -17,6 +17,7 @@ import {useEffect} from "react";
 import {useData} from "../context/DataContext";
 const montesserat = Montserrat({subsets: ["latin"]});
 import airports from "../db/airport.json";
+import Footer from "@/components/Footer/footer";
 export default function Home() {
   const router = useRouter();
   const [formData, setformData] = useState({});
@@ -49,7 +50,9 @@ export default function Home() {
     asyncTask();
   }, []);
   console.log("airports", airports);
+
   const searchCity = (text) => {
+    console.log("text", text);
     fetch(`${process.env.NEXT_PUBLIC_API_URL}all-airports?q=${text}`)
       .then((response) => response.json())
       .then((result) => {
@@ -64,7 +67,7 @@ export default function Home() {
       if (fromSearch || tosearch) {
         searchCity(fieldType === "From" ? fromSearch : tosearch);
       }
-    }, 400);
+    }, 500);
     return () => clearInterval(interval);
   }, [fromSearch, tosearch]);
   console.log("cityMatch", cityMatch);
@@ -220,6 +223,7 @@ export default function Home() {
                     onChange={(e) => {
                       handleOtherInputChange("From", e);
                       setFieldtype("From");
+
                       // searchCity(e.target.value);
                       setfromSearch(e.currentTarget.value);
                     }}
@@ -234,12 +238,9 @@ export default function Home() {
                               background: "#d1d1d1",
                               position: "absolute",
                               bottom: "23px",
-                              transform: "translateY(100%)",
+                              // transform: "translateY(100%)",
                               "z-index": "100",
                             }}
-                            className={
-                              "w-[100px] sm:w-[100%] mb-[15px]  mr-[20px]"
-                            }
                             onClick={() => {
                               setOtherData((pre) => ({
                                 ...pre,
@@ -249,7 +250,7 @@ export default function Home() {
                             }}
                           >
                             <div
-                              style={{width: "50%", color: "black",}}
+                              style={{width: "50%", color: "black"}}
                               title={`city:{item.name}`}
                               id="citynamememenDubai"
                             >
@@ -257,7 +258,6 @@ export default function Home() {
                               <br />
                               <p>{item.country_name}</p>
                             </div>
-                           
                           </div>
                         );
                       })}
@@ -291,9 +291,6 @@ export default function Home() {
                             transform: "translateY(100%)",
                             "z-index": "100",
                           }}
-                          className={
-                            "w-[100px] sm:w-[100%] mb-[15px]  mr-[20px]"
-                          }
                           onClick={() => {
                             setOtherData((pre) => ({
                               ...pre,
@@ -475,6 +472,7 @@ export default function Home() {
               </div>
             </div>
           </div>
+          <Footer />
         </>
       )}
     </main>

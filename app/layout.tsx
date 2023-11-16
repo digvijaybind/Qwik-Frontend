@@ -1,6 +1,5 @@
 import "./globals.css";
 import {Inter, Montserrat} from "@next/font/google";
-import Footer from "../components/Footer/footer";
 const montserrat = Montserrat({subsets: ["latin"]});
 import {DataProvider} from "../context/DataContext";
 export default function RootLayout({children}: {children: React.ReactNode}) {
@@ -14,7 +13,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
       <body className={montserrat.className}>
         <DataProvider>
           {children}
-          <Footer></Footer>
+        
         </DataProvider>
       </body>
     </html>
