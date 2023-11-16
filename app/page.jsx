@@ -249,7 +249,7 @@ export default function Home() {
                             }}
                           >
                             <div
-                              style={{width: "50%", color: "black"}}
+                              style={{width: "50%", color: "black",}}
                               title={`city:{item.name}`}
                               id="citynamememenDubai"
                             >
@@ -257,11 +257,7 @@ export default function Home() {
                               <br />
                               <p>{item.country_name}</p>
                             </div>
-                            <div
-                              style={{width: "50%", color: "black"}}
-                              title={`city:{item.name}`}
-                              id="citynamememenDubai"
-                            ></div>
+                           
                           </div>
                         );
                       })}
