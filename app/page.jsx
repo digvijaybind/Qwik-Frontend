@@ -51,6 +51,39 @@ export default function Home() {
   }, []);
   console.log("airports", airports);
 
+  useEffect(() => {
+    document.addEventListener("mouseup", function (e) {
+      console.log("event FIred");
+      let container1 = document.querySelector("#fromAutoComplete");
+      console.log("container1", container1);
+      let container2 = document.querySelector("#toAutoComplete");
+      console.log("container2", container2);
+      console.log(
+        "container1 && !container1?.contains(e.target)",
+        container1 && !container1?.contains(e.target)
+      );
+      console.log(
+        "container1?.contains(e.target)",
+        container1?.contains(e.target)
+      );
+      console.log(
+        "container2 && !container2?.contains(e.target)",
+        container2 && !container2?.contains(e.target)
+      );
+      console.log(
+        "container2?.contains(e.target)",
+        container2?.contains(e.target)
+      );
+      console.log(e.target);
+      if (container1 && !container1?.contains(e.target)) {
+        setFieldtype((state) => (state === "From" ? "" : state));
+      }
+      if (container2 && !container2?.contains(e.target)) {
+        setFieldtype((state) => (state === "To" ? "" : state));
+      }
+    });
+  }, []);
+
   const searchCity = (text) => {
     console.log("text", text);
     fetch(`${process.env.NEXT_PUBLIC_API_URL}all-airports?q=${text}`)
@@ -212,10 +245,10 @@ export default function Home() {
               <div className="flex sm:justify-center flex-wrap px-[5%] sm:px-[2%] pt-[40px]">
                 <div
                   style={{position: "relative"}}
-                  className=" mb-[10px]  w-[200px] sm:w-[100%]  mr-[20px]"
+                  className=" mb-[15px]  w-[200px] sm:w-[100%]  mr-[20px]"
                 >
                   <TextInput
-                    className={"w-[200px] sm:w-[100%]  mr-[20px] mb-[15px]"}
+                    className={"w-[200px] sm:w-[100%]  mr-[20px]"}
                     label={"From"}
                     // register={register("From")}
                     value={otherData.From}
@@ -228,19 +261,16 @@ export default function Home() {
                       setfromSearch(e.currentTarget.value);
                     }}
                   ></TextInput>
-                  <div style={{overflowY: "auto"}}>
+                  <div
+                    className="absolute overflow-auto z-[100] max-h-[300px]"
+                    id="fromAutoComplete"
+                  >
                     {fieldType === "From" &&
                       cityMatch?.length > 0 &&
                       cityMatch?.map((item, index) => {
                         return (
                           <div
-                            style={{
-                              background: "#d1d1d1",
-                              position: "absolute",
-                              bottom: "23px",
-                              // transform: "translateY(100%)",
-                              "z-index": "100",
-                            }}
+                            className="bg-[#d1d1d1] px-3 py-2"
                             onClick={() => {
                               setOtherData((pre) => ({
                                 ...pre,
@@ -249,15 +279,17 @@ export default function Home() {
                               setCitymatch([]);
                             }}
                           >
-                            <div
-                              style={{width: "50%", color: "black"}}
-                              title={`city:{item.name}`}
-                              id="citynamememenDubai"
-                            >
-                              {item.city_name},{item.icao}
-                              <br />
-                              <p>{item.country_name}</p>
-                            </div>
+                            <p className="text-[0.95rem] font-semibold text-blue-900">
+                              {item?.icao}
+                              {item?.iata ? `(${item?.iata})` : null}
+                              {item?.icao || item?.iata ? "," : null}{" "}
+                              {item?.name}
+                            </p>
+                            <p className="text-[0.7rem]">
+                              {item?.city_name}
+                              {item?.city_name ? "," : null}{" "}
+                              {item?.country_name}
+                            </p>
                           </div>
                         );
                       })}
@@ -265,10 +297,10 @@ export default function Home() {
                 </div>
                 <div
                   style={{position: "relative"}}
-                  className=" mb-[10px]  w-[200px] sm:w-[100%]  mr-[20px]"
+                  className=" mb-[15px]  w-[200px] sm:w-[100%]  mr-[20px]"
                 >
                   <TextInput
-                    className={"w-[200px] sm:w-[100%]  mr-[20px] mb-[15px]"}
+                    className={"w-[200px] sm:w-[100%]  mr-[20px]"}
                     label={"To"}
                     name="to"
                     value={otherData.To}
@@ -279,43 +311,39 @@ export default function Home() {
                     }}
                     // register={register("To")}
                   ></TextInput>
-                  {fieldType === "To" &&
-                    cityMatch.length > 0 &&
-                    cityMatch?.map((item, index) => {
-                      return (
-                        <div
-                          style={{
-                            background: "#d1d1d1",
-                            position: "absolute",
-                            bottom: "23px",
-                            transform: "translateY(100%)",
-                            "z-index": "100",
-                          }}
-                          onClick={() => {
-                            setOtherData((pre) => ({
-                              ...pre,
-                              To: item.icao,
-                            }));
-                            setCitymatch([]);
-                          }}
-                        >
+                  <div
+                    className="absolute overflow-auto z-[100] max-h-[300px]"
+                    id="toAutoComplete"
+                  >
+                    {fieldType === "To" &&
+                      cityMatch?.length > 0 &&
+                      cityMatch?.map((item, index) => {
+                        return (
                           <div
-                            style={{width: "50%", color: "black"}}
-                            title={`city:{item.name}`}
-                            id="citynamememenDubai"
+                            className="bg-[#d1d1d1] px-3 py-2"
+                            onClick={() => {
+                              setOtherData((pre) => ({
+                                ...pre,
+                                To: item.icao,
+                              }));
+                              setCitymatch([]);
+                            }}
                           >
-                            {item.city_name},{item.icao}
-                            <br />
-                            <p>{item.country_name}</p>
+                            <p className="text-[0.95rem] font-semibold text-blue-900">
+                              {item?.icao}
+                              {item?.iata ? `(${item?.iata})` : null}
+                              {item?.icao || item?.iata ? "," : null}{" "}
+                              {item?.name}
+                            </p>
+                            <p className="text-[0.7rem]">
+                              {item?.city_name}
+                              {item?.city_name ? "," : null}{" "}
+                              {item?.country_name}
+                            </p>
                           </div>
-                          <div
-                            style={{width: "50%", color: "black"}}
-                            title={`city:{item.name}`}
-                            id="citynamememenDubai"
-                          ></div>
-                        </div>
-                      );
-                    })}
+                        );
+                      })}
+                  </div>
                 </div>
                 {/* <TextInput
               className={"w-[100px] sm:w-[100%]  mr-[20px] mb-[15px]"}
@@ -325,14 +353,17 @@ export default function Home() {
 
                 <div
                   // className=" mb-[10px]  w-[200px] sm:w-[100%]  mr-[20px]"
-                  className="relative  mb-[10px]  w-[200px] sm:w-[100%]  mr-[20px] "
+                  className="relative w-[200px] sm:w-[100%]  mr-[20px] mb-15px"
                 >
-                  <label htmlFor="" className="absolute bg-white top-[-18px]">
+                  <label
+                    htmlFor=""
+                    className="static md:absolute bg-white top-[-18px]"
+                  >
                     Aircraft
                   </label>
                   <select
                     // {...register("Aircraft")}
-                    className={`${styles.SelectInput}  h-[40px]  outline-0 mb-[15px]  w-[200px] sm:w-[100%]  mr-[20px] absolute bg-white `}
+                    className={`${styles.SelectInput}  h-[40px]  outline-0 mb-[15px]  w-[200px] sm:w-[100%]  mr-[20px] bg-white `}
                     name="Aircraft"
                     id=""
                     value={otherData.Aircraft}
@@ -346,7 +377,7 @@ export default function Home() {
                 </div>
 
                 <TextInput
-                  className={"w-[200px] sm:w-[100%]  mr-[20px] "}
+                  className={"w-[200px] sm:w-[100%]  mr-[20px] mb-[15px]"}
                   label={"Pax"}
                   value={otherData.Pax}
                   name="pax"

@@ -2,7 +2,10 @@ import styles from "./input.module.css";
 export const TextInput = ({label, register, className, value, onChange}) => {
   return (
     <div className={`flex flex-col relative ${className}`}>
-      <label className="absolute top-[-10px] left-[8px] bg-white" htmlFor="">
+      <label
+        className="top-[-10px] left-[8px] bg-white static md:absolute"
+        htmlFor=""
+      >
         {label}
       </label>
       <input
@@ -18,7 +21,7 @@ export const TextInput = ({label, register, className, value, onChange}) => {
 export const DateInput = ({label, className, register, value, onChange}) => {
   return (
     <div className={`flex flex-col relative ${className}`}>
-      <label className="absolute top-[-10px] left-[8px] bg-white" htmlFor="">
+      <label className="static md:absolute top-[-10px] left-[8px] bg-white " htmlFor="">
         {label}
       </label>
       <input
